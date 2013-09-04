@@ -69,21 +69,21 @@ def likePicture(pictureId):
 
 def followUser(userId):
     followed=0
-    followUrl="https://api.instagram.com/v1/users/%s/relationship?action=allow"
+    followUrl = "https://api.instagram.com/v1/users/%s/relationship?action=allow"
 
     values = {'access_token' : auth_token,
               'action' : 'follow',
               'client_id' : client_id}    
     try:
-        newFollow=followUrl % (userId)
+        newFollow = followUrl % (userId)
         print newFollow
         data = urllib.urlencode(values)
         req = urllib2.Request(newFollow,data,headers)
         response = urllib2.urlopen(req)
         result = response.read()                      
         print result
-        dataObj=json.loads(result);
-        followed=1  
+        dataObj = json.loads(result);
+        followed = 1
                                        
     except Exception, e:
         print e
@@ -92,7 +92,7 @@ def followUser(userId):
         
 def likeAndFollowUser(userId):
     numLikesFollows=0
-    urlUserMedia="https://api.instagram.com/v1/users/%s/media/recent/?access_token=%s" % (userId,auth_token)
+    urlUserMedia = "https://api.instagram.com/v1/users/%s/media/recent/?access_token=%s" % (userId,auth_token)
     values = {
               'client_id' : client_id}    
     try:
@@ -101,16 +101,16 @@ def likeAndFollowUser(userId):
         req = urllib2.Request(urlUserMedia,None,headers)
         response = urllib2.urlopen(req)
         result = response.read()                      
-        dataObj=json.loads(result);
-        picsToLike=random.randint(1, 3)
+        dataObj = json.loads(result);
+        picsToLike = random.randint(1, 3)
         print "Liking %s pics for user %s" % (picsToLike, userId)
         countPicViews=0
         for picture in dataObj['data']:
             print "Liking picture %s " % picture['id']
             likePicture(picture['id'])
-            countPicViews=countPicViews+1
-            numLikesFollows=numLikesFollows+1
-            if(countPicViews==picsToLike):
+            countPicViews = countPicViews+1
+            numLikesFollows = numLikesFollows+1
+            if(countPicViews == picsToLike):
                 break
         followed=1
     except Exception, e:
@@ -119,7 +119,7 @@ def likeAndFollowUser(userId):
     followUser(userId)
     return numLikesFollows
 
-if(ACTION==LIKE or ACTION==LIKE_FOLLOW):
+if(ACTION == LIKE or ACTION == LIKE_FOLLOW):
     def likeUsers(max_results,max_id,tag,c,fllw):
         urlFindLike="https://api.instagram.com/v1/tags/%s/media/recent?client_id=1627c123e3fc481791e0d6be16ff57a0&access_token=%s" % (tag,auth_token);
 
@@ -129,23 +129,23 @@ if(ACTION==LIKE or ACTION==LIKE_FOLLOW):
                   'max_id' : max_id}
         
         f = urllib.urlopen(urlFindLike)
-        dataObj=json.loads(f.read())
+        dataObj = json.loads(f.read())
         f.close()
-        numResults=len(dataObj['data'])
+        numResults = len(dataObj['data'])
         pictureId=0
         for likeObj in dataObj['data']:
                 print ''                
-                pictureId=likeObj['id']
-                paginationId=dataObj["pagination"]['next_max_id']            
-                user=likeObj['user']
-                userId=user['id']
+                pictureId = likeObj['id']
+                paginationId = dataObj["pagination"]['next_max_id']
+                user = likeObj['user']
+                userId = user['id']
                 try:
-                    numLikes=likedDict[pictureId]
-                    numLikes=numLikes+1
-                    likedDict[pictureId]=numLikes
+                    numLikes = likedDict[pictureId]
+                    numLikes = numLikes+1
+                    likedDict[pictureId] = numLikes
                 except:
-                    numLikes=1
-                    likedDict[pictureId]=numLikes
+                    numLikes = 1
+                    likedDict[pictureId] = numLikes
                     
                 try:
                     result = likePicture(pictureId)
