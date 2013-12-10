@@ -26,3 +26,5 @@ When this bot was written there was no limit on how many people you could follow
 There is also a API request limit of 5000 per second. However there's a limit of photos you can like per hour at around 200-300.
 
 Our testing shows that it takes around 1000 likes to get 10 follows returned. Follow and liking is more powerful and returns better results (people are more inclined to return the favour)
+
+An ideal way to get a better return for the follow like setup is to have the script also unfollow anyone who does not follow you. This would allow the Instagram algorithm to let you have better weighting for your posts.
