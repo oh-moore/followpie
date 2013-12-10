@@ -1,4 +1,3 @@
-
 # DO NOT TOUCH THESE THREE CONST VARIABLES
 POPULAR = 1
 LIKE = 2
@@ -25,7 +24,7 @@ MAX_SECS = 2
 #DOES NOT NEED TO CHANGE UNLESS AUTH TOKEN EXPIRES
 #
 #
-#   https://api.instagram.com/oauth/authorize/?client_id=1627c123e3fc481791e0d6be16ff57a0&redirect_uri=http://smallhours.fm&response_type=token&display=touch&scope=likes+relationships
+#   https://api.instagram.com/oauth/authorize/?client_id=1627c123e3fc481791e0d6be16ff57a0&redirect_uri=http://yoururl.com&response_type=token&display=touch&scope=likes+relationships
 #
 auth_token = "2085179.1627c12.939ae81957124868a718c693e94f8218"
 client_id = '1627c123e3fc481791e0d6be16ff57a0'
