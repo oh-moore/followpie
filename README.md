@@ -37,4 +37,8 @@ If you've no idea whta you're doing you can get the bot up and running with the 
 1. Download Python http://www.python.org/getit/
 2. Run the python IDE which you get packaged with the python installer for your OS
 3. With the IDE open the script
-4. Before running you'll need to get your access token. To do this you'll need your own web domain and your own developer api access with instagram. http://instagram.com/developer/ Sign up and get an API key that allows you to follow and like. You'll then need to have the authorization url redirect to your authorized web domain.
+4. Before running you'll need to get your access token. To do this you'll need your own web domain and your own developer api access with instagram. http://instagram.com/developer/ Sign up and get an API key that allows you to follow and like. You'll then need to have the authorization url redirect to your authorized web domain. To get your key, replace the appropriate parts of the auth URL you can see in the script like this.
+
+https://api.instagram.com/oauth/authorize/?client_id=1627c123e3fc481791e0d6be16ff57a0&redirect_uri=http://yoururl.com&response_type=token&display=touch&scope=likes+relationships
+
+change the client id to your client id and login with your instagram account, when you get redirected back to your web page you'll be given an auth code in the return url. Copy this code out and add it to the script 
