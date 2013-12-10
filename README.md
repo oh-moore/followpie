@@ -6,7 +6,7 @@ Instagram loves pie
 
 Follow Pie is a tried and tested Instagram bot which automatically follows and likes users and photos based on certain parameters.
 
-Made by @mutlu82 and @oh_moore with the goal of increasing more users for our personal accounts and driving people to view our profile pages which contains a url to our iPhone app
+Made by [@mutlu82](https://www.twitter.com/mutlu82 "@mutlu82") and [@oh_moore](https://www.twitter.com/oh_moore "@oh_moore") with the goal of increasing more users for our personal accounts and driving people to view our profile pages which contains a url to our iPhone app
 
 The aim of the bot is to get real people to reciprocate follows and likes.
 
