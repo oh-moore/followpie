@@ -28,3 +28,13 @@ There is also a API request limit of 5000 per second. However there's a limit of
 Our testing shows that it takes around 1000 likes to get 10 follows returned. Follow and liking is more powerful and returns better results (people are more inclined to return the favour)
 
 An ideal way to get a better return for the follow like setup is to have the script also unfollow anyone who does not follow you. This would allow the Instagram algorithm to let you have better weighting for your posts.
+
+
+Technical Stuff.
+
+If you've no idea whta you're doing you can get the bot up and running with the following steps.
+
+1. Download Python http://www.python.org/getit/
+2. Run the python IDE which you get packaged with the python installer for your OS
+3. With the IDE open the script
+4. Before running you'll need to get your access token. To do this you'll need your own web domain and your own developer api access with instagram. http://instagram.com/developer/ Sign up and get an API key that allows you to follow and like. You'll then need to have the authorization url redirect to your authorized web domain.
