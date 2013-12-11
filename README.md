@@ -30,6 +30,9 @@ Our testing shows that it takes around 1000 likes to get 10 follows returned. Fo
 An ideal way to get a better return for the follow like setup is to have the script also unfollow anyone who does not follow you. This would allow the Instagram algorithm to let you have better weighting for your posts.
 
 
+Read the full story and results from running the bot here: http://www.mobileinc.co.uk/2013/12/follow-pie-the-instagram-bot-made-to-generate-more-app-store-downloads/
+
+
 Technical Stuff.
 
 If you've no idea whta you're doing you can get the bot up and running with the following steps.
