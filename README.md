@@ -37,7 +37,7 @@ Technical Stuff.
 
 If you've no idea whta you're doing you can get the bot up and running with the following steps.
 
-1. Download Python http://www.python.org/getit/
+1. Download Python http://www.python.org/getit/ 2.6 or 2.7
 2. Run the python IDLE which you get packaged with the python installer for your OS
 3. With the IDLE open the script
 4. Before running you'll need to get your access token. 
