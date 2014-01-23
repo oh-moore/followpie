@@ -1,17 +1,17 @@
-
-#Choose the tag you want to like based on, keep the word in double quotes, do not put a # sign in front of the tag
-TAGS = ["beach", "lolcats", "kerry", "tree"]
-
-
 # DO NOT TOUCH THESE THREE CONST VARIABLES
 POPULAR = 1
 LIKE = 2
 LIKE_FOLLOW = 3
+UNFOLLOW = 4
+
+#Choose the tag you want to like based on, keep the word in double quotes, do not put a # sign in front of the tag
+TAGS = ["beach", "lolcats", "kerry", "tree"]
+
 #IF YOU WANT THE ACTION TO FOLLOW OR LIKE SOMEONE BASED ON THE CHOSEN TAG CHANGE IT TO EITHER
 #   ACTION=POPULAR   - Popular follows people who have liked an image on the popular page (this means they are active users)
 #   ACTION=LIKE
 #   ACTION=LIKE_FOLLOW
-ACTION = LIKE_FOLLOW
+ACTION = UNFOLLOW
 
 #CHANGE THE NUMBER OF LIKES OR FOLLOWS YOU WANT TO OCCUR, e.g. NO MORE THEN 100 is the current setting
 MAX_COUNT = 100
@@ -25,7 +25,7 @@ MAX_SECS = 2
 #DOES NOT NEED TO CHANGE UNLESS AUTH TOKEN EXPIRES
 #
 #
-#   https://api.instagram.com/oauth/authorize/?client_id=1627c123e3fc481791e0d6be16ff57a0&redirect_uri=http://smallhours.fm&response_type=token&display=touch&scope=likes+relationships
+#   https://api.instagram.com/oauth/authorize/?client_id=1627c123e3fc481791e0d6be16ff57a0&redirect_uri=http://yoururl.com&response_type=token&display=touch&scope=likes+relationships
 #
 auth_token = "2085179.1627c12.939ae81957124868a718c693e94f8218"
 client_id = '1627c123e3fc481791e0d6be16ff57a0'
@@ -34,7 +34,7 @@ client_id = '1627c123e3fc481791e0d6be16ff57a0'
 
 print "FOLLOW PIE BEGINS - GRAB A SLICE AND SIT BACK"
 print ""
-print "The script will now proceed to follow and like users"
+print "The script will now proceed"
 print ""
 print ""
 
@@ -66,6 +66,96 @@ def likePicture(pictureId):
         print e
     return liked
 
+FOLLOWS = 1
+DOES_NOT_FOLLOW = 0
+PENDING = 2
+
+
+#unfollow users who don't follow you.
+def unfollow_users(next_url=None, num_unfollows=0):
+    if next_url == None:
+        urlUserMedia = "https://api.instagram.com/v1/users/self/follows?access_token=%s" % (auth_token)
+    else:
+        urlUserMedia = next_url
+
+    values = {
+              'client_id' : client_id}
+    try:
+        data = urllib.urlencode(values)
+        req = urllib2.Request(urlUserMedia,None,headers)
+        response = urllib2.urlopen(req)
+        result = response.read()
+        dataObj = json.loads(result)
+        next_url = None
+        if dataObj.get('pagination') is not None:
+            next_url = dataObj.get('pagination')["next_url"]
+
+        for user in dataObj['data']:
+            for k, v in user.iteritems():
+                if k == "id":
+                    userId = v
+            relationship = get_relationship(userId)
+            if relationship == DOES_NOT_FOLLOW:
+                result = unfollow_user(userId)
+                num_unfollows = num_unfollows+result
+            seconds=random.randint(1, MAX_SECS)
+            time.sleep(seconds)
+        print num_unfollows
+        if num_unfollows % 10 == 0:
+            print "Unfollowed %s users " % num_unfollows
+
+        if next_url is not None:
+            unfollow_users(next_url, num_unfollows)
+
+    except Exception, e:
+        print e
+    return num_unfollows
+
+
+def get_relationship(userId):
+    unfollowed=0
+
+    followUrl = "https://api.instagram.com/v1/users/%s/relationship?access_token=%s&client_id=%s" % (userId, auth_token, client_id)
+
+    values = {'access_token' : auth_token,
+              'client_id' : client_id}
+    try:
+        data = urllib.urlencode(values)
+        req = urllib2.Request(followUrl,None,headers)
+        response = urllib2.urlopen(req)
+        result = response.read()
+        dataObj = json.loads(result)
+        status = dataObj["data"]
+        incoming = status["incoming_status"]
+        print '%s - %s ' % (userId, incoming)
+        if incoming != "followed_by":
+            return DOES_NOT_FOLLOW
+        else:
+            return FOLLOWS
+    except Exception, e:
+        print e
+    return unfollowed
+
+
+def unfollow_user(userId):
+    unfollowed=0
+    followUrl = "https://api.instagram.com/v1/users/%s/relationship?action=allow"
+
+    values = {'access_token' : auth_token,
+              'action' : 'unfollow',
+              'client_id' : client_id}
+    try:
+        newFollow = followUrl % (userId)
+        data = urllib.urlencode(values)
+        req = urllib2.Request(newFollow,data,headers)
+        response = urllib2.urlopen(req)
+        result = response.read()
+        dataObj = json.loads(result)
+        unfollowed = 1
+    except Exception, e:
+        print e
+    return unfollowed
+
 
 def followUser(userId):
     followed=0
@@ -89,7 +179,8 @@ def followUser(userId):
         print e
         
     return followed
-        
+
+
 def likeAndFollowUser(userId):
     numLikesFollows=0
     urlUserMedia = "https://api.instagram.com/v1/users/%s/media/recent/?access_token=%s" % (userId,auth_token)
@@ -209,5 +300,8 @@ elif(ACTION==POPULAR):
         print ""
     print "Followed %s" % (c);
     print "Liked %s" % (l);
+elif(ACTION==UNFOLLOW):
+    num_unfollows = unfollow_users()
+    print "Number of users unfollowed is %s " % num_unfollows
 
 print "FOLLOW PIE ENDS - HAPPY DIGESTING"
