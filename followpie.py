@@ -27,7 +27,7 @@ MAX_SECS = 2
 #
 #   https://api.instagram.com/oauth/authorize/?client_id=1627c123e3fc481791e0d6be16ff57a0&redirect_uri=http://yoururl.com&response_type=token&display=touch&scope=likes+relationships
 #
-auth_token = "2085179.1627c12.939ae81957124868a718c693e94f8218"
+auth_token = "asdfasfdsafsadfreafdafs"
 client_id = '1627c123e3fc481791e0d6be16ff57a0'
 
 ######DO NOT TOUCH ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU ARE DOING, DANGER DANGER, SERIOUS PROBLEMS IF YOU TOUCH ###########
