@@ -212,7 +212,7 @@ def likeAndFollowUser(userId):
 
 if(ACTION == LIKE or ACTION == LIKE_FOLLOW):
     def likeUsers(max_results,max_id,tag,c,fllw):
-        urlFindLike="https://api.instagram.com/v1/tags/%s/media/recent?client_id=1627c123e3fc481791e0d6be16ff57a0&access_token=%s" % (tag,auth_token);
+        urlFindLike="https://api.instagram.com/v1/tags/%s/media/recent?client_id=%s&access_token=%s" % (tag,client_id, auth_token);
 
         urlLike="https://api.instagram.com/v1/media/%s/likes"
         values = {'access_token' : auth_token,
@@ -269,7 +269,7 @@ if(ACTION == LIKE or ACTION == LIKE_FOLLOW):
     for likes in likedDict:
         print "%s = %s" % (likes, likedDict[likes])
 elif(ACTION==POPULAR):
-    urlPopular="https://api.instagram.com/v1/media/popular?client_id=1627c123e3fc481791e0d6be16ff57a0";
+    urlPopular="https://api.instagram.com/v1/media/popular?client_id=%s" % (client_id,);
     f = urllib.urlopen(urlPopular)
     dataObj=json.loads(f.read())
     f.close()
